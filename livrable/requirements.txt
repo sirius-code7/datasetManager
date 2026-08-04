@@ -1,0 +1,4 @@
+cs50
+------------------------------------------------------------------------------------
+
+for documentation = https://cs50.readthedocs.io/libraries/cs50/python/#cs50.get_int
