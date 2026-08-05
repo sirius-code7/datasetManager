@@ -109,7 +109,30 @@ while True:
 
     elif choix == 4:
         # --- Partie 5.3 : Rechercher un dataset  ---
-        print("→ (à venir) Rechercher un dataset\n")
+        if not datasets:
+            print("Aucun dataset disponible pour la recherche.\n")
+        else:
+            nom_recherche = get_string("Nom du dataset à rechercher : ")
+
+            dataset_trouve = None
+
+            for dataset in datasets:
+                if dataset["nom"].lower() == nom_recherche.lower():
+                    dataset_trouve = dataset
+                    break
+
+            if dataset_trouve is None:
+                print(f"Datatset '{nom_recherche}' non trouvé.\n")
+            else:
+                print("\n===== Résultat de la recherche =====")
+                print(f"Nom        : {dataset_trouve['nom']}")
+                print(f"Domaine    : {dataset_trouve['domaine']}")
+                print(f"Lignes     : {dataset_trouve['lignes']}")
+                print(f"Colonnes   : {dataset_trouve['colonnes']}")
+                print(f"Taille     : {dataset_trouve['taille']} Mo")
+                print(f"Format     : {dataset_trouve['format']}")
+                print(f"Public     : {'Oui' if dataset_trouve['public'] else 'Non'}")
+                print("====================================\n")
 
     elif choix == 5:
         # --- Partie 5.4 : Modifier un dataset  ---
