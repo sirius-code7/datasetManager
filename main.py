@@ -106,9 +106,8 @@ while True:
 
         print("==================================\n")
 
-
+    # --- Partie 5.3 : Rechercher un dataset  ---
     elif choix == 4:
-        # --- Partie 5.3 : Rechercher un dataset  ---
         if not datasets:
             print("Aucun dataset disponible pour la recherche.\n")
         else:
@@ -134,9 +133,9 @@ while True:
                 print(f"Public     : {'Oui' if dataset_trouve['public'] else 'Non'}")
                 print("====================================\n")
 
-
+    # --- Partie 5.4 : Modifier un dataset  ---
     elif choix == 5:
-        # --- Partie 5.4 : Modifier un dataset  ---
+        
         if not datasets:
             print("Aucun dataset disponible pour la modification.\n")
         else:
@@ -191,9 +190,28 @@ while True:
                 )
 
 
+    # --- Partie 5.5 : Supprimer un dataset  ---
     elif choix == 6:
-        # --- Partie 5.5 : Supprimer un dataset  ---
-        print("→ (à venir) Supprimer un dataset\n")
+        if not datasets:
+            print("Aucun dataset disponible pour la suppression.\n")
+        else:
+            nom_suppression = get_string("Nom du dataset à supprimer : ")
+
+            dataset_trouve = None
+
+            for dataset in datasets:
+                if dataset["nom"].lower() == nom_suppression.lower():
+                    dataset_trouve = dataset
+                    break
+
+            if dataset_trouve is None:
+                print(f"Dataset '{nom_suppression}' non trouvé.\n")
+            else:
+                datasets.remove(dataset_trouve)
+                print(
+                    f"Le dataset '{nom_suppression}' a été supprimé avec succès.\n"
+                )
+
 
     elif choix == 7:
         print("Au revoir !")
