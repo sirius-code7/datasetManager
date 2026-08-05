@@ -1,15 +1,23 @@
 """
 datasetManager - Application console de gestion de jeux de données
+--------------------------------------------------------------------
 Partie 1 : Types de base, variables, Entrées / Sorties
 Partie 2 : Structures de contrôle
 Partie 3 : Dictionnaires
 Partie 4 : Tuples
+------------------------------------------------
 Partie 5 : Listes (5.1 - Ajouter un dataset)
 Partie 5 : Listes (5.2 - Trier les datasets)
 Partie 5 : Listes (5.3 - Rechercher un dataset)
 Partie 5 : Listes (5.4 - Modifier un dataset)
 Partie 5 : Listes (5.5 - Supprimer un dataset)
+------------------------------------------------
+Partie 6 : Statistiques
+------------------------------------------------
+Partie 7.1 : Sauvegarde les données dans un fichier CSV
 """
+
+import csv
 
 from cs50 import get_string, get_int, get_float
 
@@ -32,7 +40,9 @@ while True:
     print("5. Modifier un dataset")
     print("6. Supprimer un dataset")
     print("7. Afficher les statistiques")
-    print("8. Quitter")
+    print("8. Sauvegarder les datasets")
+    print("9. Recharger les datasets")
+    print("10. Quitter")
     print("========================")
 
     choix = get_int("Votre choix : ")
@@ -292,10 +302,33 @@ while True:
 
             print("======================================\n")
 
+###############################################################################################################     # --- Partie 7.1 : Sauvegarder les données dans un fichier CSV ---
+
+        # --- Partie 7.1 : Sauvegarder les données dans un fichier CSV ---
+
+    elif choix == 8:
+        with open("datasets.csv", "w", newline="", encoding="utf-8") as fichier:
+            colonnes = [
+                "nom",
+                "domaine",
+                "lignes",
+                "colonnes",
+                "taille",
+                "format",
+                "public"
+            ]
+
+            writer = csv.DictWriter(fichier, fieldnames=colonnes)
+
+            writer.writeheader()
+            writer.writerows(datasets)
+
+        print("Les datasets ont été sauvegardés dans 'datasets.csv'.\n")
+
 
 ###############################################################################################################     # --- Quitter l'application ---
 
-    elif choix == 8:
+    elif choix == 10:
         print("Au revoir !")
         break
 
