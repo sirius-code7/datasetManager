@@ -134,9 +134,62 @@ while True:
                 print(f"Public     : {'Oui' if dataset_trouve['public'] else 'Non'}")
                 print("====================================\n")
 
+
     elif choix == 5:
         # --- Partie 5.4 : Modifier un dataset  ---
-        print("→ (à venir) Modifier un dataset\n")
+        if not datasets:
+            print("Aucun dataset disponible pour la modification.\n")
+        else:
+            nom_modification = get_string("Nom du dataset à modifier : ")
+
+            dataset_trouve = None
+
+            for dataset in datasets:
+                if dataset["nom"].lower() == nom_modification.lower():
+                    dataset_trouve = dataset
+                    break
+
+            if dataset_trouve is None:
+                print(f"Dataset '{nom_modification}' non trouvé.\n")
+            else:
+                print(f"\nModification du dataset '{dataset_trouve['nom']}'")
+
+                # --- Saisie des nouvelles métadonnées ---
+                nouveau_nom = get_string("Nouveau nom du dataset : ")
+
+                nouveau_domaine = get_string(
+                    f"Nouveau domaine {DOMAINES_AUTORISES} : "
+                )
+                while nouveau_domaine not in DOMAINES_AUTORISES:
+                    print("Domaine invalide, choisissez parmi la liste proposée.\n")
+                    nouveau_domaine = get_string(
+                        f"Nouveau domaine {DOMAINES_AUTORISES} : "
+                    )
+
+                nouvelles_lignes = get_int("Nouveau nombre de lignes : ")
+                nouvelles_colonnes = get_int("Nouveau nombre de colonnes : ")
+                nouvelle_taille = get_float("Nouvelle taille en Mo : ")
+                nouveau_format = get_string("Nouveau format (csv ou json) : ")
+                nouveau_public = (
+                    get_string("Le dataset est-il public ? (true/false) : ")
+                    .strip()
+                    .lower()
+                    == "true"
+                )
+
+                # --- Mise à jour des métadonnées du dataset ---
+                dataset_trouve["nom"] = nouveau_nom
+                dataset_trouve["domaine"] = nouveau_domaine
+                dataset_trouve["lignes"] = nouvelles_lignes
+                dataset_trouve["colonnes"] = nouvelles_colonnes
+                dataset_trouve["taille"] = nouvelle_taille
+                dataset_trouve["format"] = nouveau_format.upper()
+                dataset_trouve["public"] = nouveau_public
+
+                print(
+                    f"\nLe dataset '{nom_modification}' a été modifié avec succès.\n"
+                )
+
 
     elif choix == 6:
         # --- Partie 5.5 : Supprimer un dataset  ---
