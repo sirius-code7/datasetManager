@@ -13,8 +13,10 @@ Partie 5 : Listes (5.4 - Modifier un dataset)
 Partie 5 : Listes (5.5 - Supprimer un dataset)
 ------------------------------------------------
 Partie 6 : Statistiques
-------------------------------------------------
+---------------------------------------------------------------------
 Partie 7.1 : Sauvegarde les données dans un fichier CSV
+Partie 7.2 : Recharger + afficher les données depuis un fichier CSV
+---------------------------------------------------------------------
 """
 
 import csv
@@ -324,6 +326,50 @@ while True:
             writer.writerows(datasets)
 
         print("Les datasets ont été sauvegardés dans 'datasets.csv'.\n")
+
+
+###############################################################################################################     # --- Partie 7.2 : Recharger + afficher les données depuis un fichier CSV ---
+
+    # --- Partie 7.2 : Recharger + afficher les données depuis un fichier CSV ---
+
+    elif choix == 9:
+        datasets.clear()
+
+        with open("datasets.csv", "r", newline="", encoding="utf-8") as fichier:
+            reader = csv.DictReader(fichier)
+
+            for ligne in reader:
+                dataset = {
+                    "nom": ligne["nom"],
+                    "domaine": ligne["domaine"],
+                    "lignes": int(ligne["lignes"]),
+                    "colonnes": int(ligne["colonnes"]),
+                    "taille": float(ligne["taille"]),
+                    "format": ligne["format"],
+                    "public": ligne["public"].lower() == "true"
+                }
+
+                datasets.append(dataset)
+
+        print("Les datasets ont été rechargés depuis 'datasets.csv'.\n")
+
+         # --- Affichage des datasets rechargés ---
+        if not datasets:
+            print("Le fichier 'datasets.csv' est vide.\n")
+        else:
+            print("===== Datasets rechargés =====")
+
+            for dataset in datasets:
+                print(f"Nom        : {dataset['nom']}")
+                print(f"Domaine    : {dataset['domaine']}")
+                print(f"Lignes     : {dataset['lignes']}")
+                print(f"Colonnes   : {dataset['colonnes']}")
+                print(f"Taille     : {dataset['taille']} Mo")
+                print(f"Format     : {dataset['format']}")
+                print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
+                print("------------------------------")
+
+            print("==============================\n")
 
 
 ###############################################################################################################     # --- Quitter l'application ---
