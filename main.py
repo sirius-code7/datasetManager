@@ -5,6 +5,10 @@ Partie 2 : Structures de contrôle
 Partie 3 : Dictionnaires
 Partie 4 : Tuples
 Partie 5 : Listes (5.1 - Ajouter un dataset)
+Partie 5 : Listes (5.2 - Trier les datasets)
+Partie 5 : Listes (5.3 - Rechercher un dataset)
+Partie 5 : Listes (5.4 - Modifier un dataset)
+Partie 5 : Listes (5.5 - Supprimer un dataset)
 """
 
 from cs50 import get_string, get_int, get_float
@@ -15,22 +19,25 @@ DOMAINES_AUTORISES = ("Santé", "Finance", "Agriculture", "Transport", "Educatio
 # --- Partie 5 : Liste contenant les datasets ---
 datasets = []
 
+
+###############################################################################################################     # --- Partie 1 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) ---
 while True:
     print("\n")
     print("========================")
     print("1. Ajouter un dataset")
     print("2. Afficher les datasets")
-    print("3. Trier les datasets (à venir)")
-    print("4. Rechercher un dataset (à venir)")
-    print("5. Modifier un dataset (à venir)")
-    print("6. Supprimer un dataset (à venir)")
-    print("7. Quitter")
+    print("3. Trier les datasets")
+    print("4. Rechercher un dataset")
+    print("5. Modifier un dataset")
+    print("6. Supprimer un dataset")
+    print("7. Afficher les statistiques")
+    print("8. Quitter")
     print("========================")
 
     choix = get_int("Votre choix : ")
 
-
+###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
     # --- Partie 5.1 : Ajouter un dataset ---
     if choix == 1:
         # --- Saisie des métadonnées du dataset + Ajouter un dataset ---
@@ -47,6 +54,8 @@ while True:
         format_fichier = get_string("Format (csv ou json) : ")
         public = get_string("Public ? (true/false) : ").strip().lower() == "true"
 
+###############################################################################################################     # --- Partie 3 : Stockage dans un dictionnaire ---
+
         # --- Partie 3 : Stockage dans un dictionnaire ---
         dataset = {
             "nom": nom,
@@ -57,6 +66,8 @@ while True:
             "format": format_fichier.upper(),
             "public": public
         }
+
+###############################################################################################################     # --- Partie 5.1 : Ajout du dataset dans la liste ---
 
         # --- Partie 5.1 : Ajout du dataset dans la liste ---
         datasets.append(dataset)
@@ -91,6 +102,7 @@ while True:
                 print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
                 print("------------------------------")
 
+###############################################################################################################     # --- Partie 5.2 : Trier les datasets  ---
 
     # --- Partie 5.2 : Trier les datasets  ---
     elif choix == 3:
@@ -105,6 +117,8 @@ while True:
             print(f"- {dataset['nom']}")
 
         print("==================================\n")
+
+###############################################################################################################     # --- Partie 5.3 : Rechercher un dataset  ---
 
     # --- Partie 5.3 : Rechercher un dataset  ---
     elif choix == 4:
@@ -132,6 +146,8 @@ while True:
                 print(f"Format     : {dataset_trouve['format']}")
                 print(f"Public     : {'Oui' if dataset_trouve['public'] else 'Non'}")
                 print("====================================\n")
+
+###############################################################################################################    # --- Partie 5.4 : Modifier un dataset  ---
 
     # --- Partie 5.4 : Modifier un dataset  ---
     elif choix == 5:
@@ -189,6 +205,7 @@ while True:
                     f"\nLe dataset '{nom_modification}' a été modifié avec succès.\n"
                 )
 
+###############################################################################################################     # --- Partie 5.5 : Supprimer un dataset  ---
 
     # --- Partie 5.5 : Supprimer un dataset  ---
     elif choix == 6:
@@ -212,8 +229,73 @@ while True:
                     f"Le dataset '{nom_suppression}' a été supprimé avec succès.\n"
                 )
 
+###############################################################################################################     # --- Partie 6 : Statistiques ---
 
+    # --- Partie 6 : Statistiques ---
     elif choix == 7:
+        if not datasets:
+            print("Aucun dataset disponible pour afficher les statistiques.\n")
+        else:
+            # --- Compréhensions de listes ---
+            datasets_publics = [
+                dataset for dataset in datasets if dataset["public"]
+            ]
+
+            datasets_prives = [
+                dataset for dataset in datasets if not dataset["public"]
+            ]
+
+            datasets_csv = [
+                dataset for dataset in datasets if dataset["format"] == "CSV"
+            ]
+
+            datasets_json = [
+                dataset for dataset in datasets if dataset["format"] == "JSON"
+            ]
+
+            lignes_datasets = [
+                dataset["lignes"] for dataset in datasets
+            ]
+
+            colonnes_datasets = [
+                dataset["colonnes"] for dataset in datasets
+            ]
+
+            # --- Compréhension de dictionnaire ---
+            repartition_domaines = {
+                domaine: sum(
+                    1 for dataset in datasets
+                    if dataset["domaine"] == domaine
+                )
+                for domaine in DOMAINES_AUTORISES
+            }
+
+            # --- Calcul des statistiques ---
+            nombre_datasets = len(datasets)
+            total_lignes = sum(lignes_datasets)
+            moyenne_colonnes = sum(colonnes_datasets) / nombre_datasets
+
+            # --- Affichage des statistiques ---
+            print("\n===== Statistiques des datasets =====")
+            print(f"Nombre de datasets       : {nombre_datasets}")
+            print(f"Nombre total de lignes   : {total_lignes}")
+            print(f"Nombre moyen de colonnes : {moyenne_colonnes:.2f}")
+            print(f"Datasets publics         : {len(datasets_publics)}")
+            print(f"Datasets privés          : {len(datasets_prives)}")
+            print(f"Datasets au format CSV   : {len(datasets_csv)}")
+            print(f"Datasets au format JSON  : {len(datasets_json)}")
+
+            print("\nRépartition par domaine :")
+
+            for domaine, nombre in repartition_domaines.items():
+                print(f"- {domaine} : {nombre}")
+
+            print("======================================\n")
+
+
+###############################################################################################################     # --- Quitter l'application ---
+
+    elif choix == 8:
         print("Au revoir !")
         break
 
