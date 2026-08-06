@@ -32,9 +32,11 @@ DOMAINES_AUTORISES = ("Santé", "Finance", "Agriculture", "Transport", "Educatio
 datasets = []
 
 
-###############################################################################################################     # --- Partie 1 : Menu interactif ---
-# --- Partie 2 : Menu interactif (provisoire) ---
-while True:
+###############################################################################################################
+# --- Partie 9.1 : Afficher le menu ---
+###############################################################################################################
+
+def afficher_menu():
     print("\n")
     print("========================")
     print("1. Ajouter un dataset")
@@ -49,7 +51,12 @@ while True:
     print("10. Quitter")
     print("========================")
 
-    choix = get_int("Votre choix : ")
+    return get_int("Votre choix : ")
+
+###############################################################################################################     # --- Partie 1 : Menu interactif ---
+# --- Partie 2 : Menu interactif (provisoire) ---
+while True:
+    choix = afficher_menu()
 
 ###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
     # --- Partie 5.1 : Ajouter un dataset ---
