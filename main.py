@@ -24,20 +24,24 @@ Partie 9 : Fonctions
 Partie 10 : Modules
 """
 
-from menu import afficher_menu
+from interface.menu import afficher_menu
 
-from gestion import (
+from interface.affichage import afficher_datasets
+
+from datasets.gestion import (
     ajouter_dataset,
-    afficher_datasets,
     supprimer_dataset,
     rechercher_dataset,
     trier_dataset,
     modifier_dataset,
-    sauvegarder,
-    recharger
 )
 
-from statistiques import statistiques
+from stockage.csv_manager import (
+    sauvegarder,
+    recharger,
+)
+
+from datasets.statistiques import statistiques
 
 #*************************************************************************************************************    # --- Partie 2 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) --- fonction 0

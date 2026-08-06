@@ -1,5 +1,5 @@
 
-from gestion import datasets, DOMAINES_AUTORISES
+from datasets.gestion import datasets, DOMAINES_AUTORISES
 
 
 ###############################################################################################################
