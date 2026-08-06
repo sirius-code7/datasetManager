@@ -148,6 +148,51 @@ def afficher_datasets():
 
         print("==============================\n")
 
+
+###############################################################################################################
+# --- Partie 9.4 : Supprimer un dataset ---
+###############################################################################################################
+
+def supprimer_dataset():
+
+    # --- Vérification de la présence de datasets ---
+    if not datasets:
+        print("Aucun dataset disponible pour la suppression.\n")
+
+    else:
+        nom_suppression = get_string(
+            "Nom du dataset à supprimer : "
+        )
+
+        dataset_trouve = None
+
+
+        # --- Partie 5.5 : Recherche du dataset à supprimer ---
+        for dataset in datasets:
+            if (
+                dataset["nom"].lower()
+                == nom_suppression.lower()
+            ):
+                dataset_trouve = dataset
+                break
+
+
+        # --- Suppression du dataset trouvé ---
+        if dataset_trouve is None:
+            print(
+                f"Dataset '{nom_suppression}' non trouvé.\n"
+            )
+
+        else:
+            datasets.remove(
+                dataset_trouve
+            )
+
+            print(
+                f"Le dataset '{nom_suppression}' "
+                "a été supprimé avec succès.\n"
+            )
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) --- Fonction 0
 while True:
@@ -270,25 +315,7 @@ while True:
 
     # --- Partie 5.5 : Supprimer un dataset  ---
     elif choix == 6:
-        if not datasets:
-            print("Aucun dataset disponible pour la suppression.\n")
-        else:
-            nom_suppression = get_string("Nom du dataset à supprimer : ")
-
-            dataset_trouve = None
-
-            for dataset in datasets:
-                if dataset["nom"].lower() == nom_suppression.lower():
-                    dataset_trouve = dataset
-                    break
-
-            if dataset_trouve is None:
-                print(f"Dataset '{nom_suppression}' non trouvé.\n")
-            else:
-                datasets.remove(dataset_trouve)
-                print(
-                    f"Le dataset '{nom_suppression}' a été supprimé avec succès.\n"
-                )
+        supprimer_dataset()
 
 ###############################################################################################################     # --- Partie 6 : Statistiques ---
 
