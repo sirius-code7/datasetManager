@@ -17,12 +17,14 @@ Partie 6 : Statistiques
 Partie 7.1 : Sauvegarde les données dans un fichier CSV
 Partie 7.2 : Recharger + afficher les données depuis un fichier CSV
 ---------------------------------------------------------------------
+Partie 8 : Les exceptions
 """
 
 import csv
 
 from cs50 import get_string, get_int, get_float
 
+###############################################################################################################     # --- Partie 4 : Domaines autorisés | Tuples ---
 # --- Partie 4 : Domaines autorisés (immuables) ---
 DOMAINES_AUTORISES = ("Santé", "Finance", "Agriculture", "Transport", "Education")
 
@@ -333,44 +335,90 @@ while True:
     # --- Partie 7.2 : Recharger + afficher les données depuis un fichier CSV ---
 
     elif choix == 9:
-        datasets.clear()
+        datasets_recharges = []
 
-        with open("datasets.csv", "r", newline="", encoding="utf-8") as fichier:
-            reader = csv.DictReader(fichier)
+        try:
+            with open(
+                "datasets.csv",
+                "r",
+                newline="",
+                encoding="utf-8"
+            ) as fichier:
 
-            for ligne in reader:
-                dataset = {
-                    "nom": ligne["nom"],
-                    "domaine": ligne["domaine"],
-                    "lignes": int(ligne["lignes"]),
-                    "colonnes": int(ligne["colonnes"]),
-                    "taille": float(ligne["taille"]),
-                    "format": ligne["format"],
-                    "public": ligne["public"].lower() == "true"
-                }
+                reader = csv.DictReader(fichier)
+                lignes = list(reader)
 
-                datasets.append(dataset)
+                # --- Partie 8 : Vérification du fichier vide ---
+                if not lignes:
+                    print(
+                        "Le fichier 'datasets.csv' est vide "
+                        "ou ne contient aucun dataset.\n"
+                    )
 
-        print("Les datasets ont été rechargés depuis 'datasets.csv'.\n")
+                else:
+                    # --- Rechargement des datasets ---
+                    for ligne in lignes:
+                        dataset = {
+                            "nom": ligne["nom"],
+                            "domaine": ligne["domaine"],
+                            "lignes": int(ligne["lignes"]),
+                            "colonnes": int(ligne["colonnes"]),
+                            "taille": float(ligne["taille"]),
+                            "format": ligne["format"],
+                            "public": ligne["public"].lower() == "true"
+                        }
 
-         # --- Affichage des datasets rechargés ---
-        if not datasets:
-            print("Le fichier 'datasets.csv' est vide.\n")
-        else:
-            print("===== Datasets rechargés =====")
+                        datasets_recharges.append(dataset)
 
-            for dataset in datasets:
-                print(f"Nom        : {dataset['nom']}")
-                print(f"Domaine    : {dataset['domaine']}")
-                print(f"Lignes     : {dataset['lignes']}")
-                print(f"Colonnes   : {dataset['colonnes']}")
-                print(f"Taille     : {dataset['taille']} Mo")
-                print(f"Format     : {dataset['format']}")
-                print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
-                print("------------------------------")
+                    # --- Mise à jour de la liste principale ---
+                    datasets.clear()
+                    datasets.extend(datasets_recharges)
 
-            print("==============================\n")
+                    print(
+                        "Les datasets ont été rechargés "
+                        "depuis 'datasets.csv'.\n"
+                    )
 
+                    # --- Affichage des datasets rechargés ---
+                    print("===== Datasets rechargés =====")
+
+                    for dataset in datasets:
+                        print(f"Nom        : {dataset['nom']}")
+                        print(f"Domaine    : {dataset['domaine']}")
+                        print(f"Lignes     : {dataset['lignes']}")
+                        print(f"Colonnes   : {dataset['colonnes']}")
+                        print(f"Taille     : {dataset['taille']} Mo")
+                        print(f"Format     : {dataset['format']}")
+                        print(
+                            f"Public     : "
+                            f"{'Oui' if dataset['public'] else 'Non'}"
+                        )
+                        print("------------------------------")
+
+                    print("==============================\n")
+
+################################################################################################################    #--- Partie 8 : Gestion des exceptions ---
+
+        # --- Partie 8 : Fichier inexistant ---
+        except FileNotFoundError:
+            print(
+                "Erreur : le fichier 'datasets.csv' "
+                "n'existe pas.\n"
+            )
+
+        # --- Partie 8 : Valeur numérique invalide ---
+        except ValueError:
+            print(
+                "Erreur : une valeur numérique du fichier CSV "
+                "est invalide.\n"
+            )
+
+        # --- Partie 8 : Colonne manquante dans le fichier ---
+        except KeyError as erreur:
+            print(
+                f"Erreur : la colonne {erreur} "
+                "est absente du fichier CSV.\n"
+            )
 
 ###############################################################################################################     # --- Quitter l'application ---
 
