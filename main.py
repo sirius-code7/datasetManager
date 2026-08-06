@@ -193,6 +193,72 @@ def supprimer_dataset():
                 "a été supprimé avec succès.\n"
             )
 
+###############################################################################################################
+# --- Partie 9.5 : Rechercher un dataset ---
+###############################################################################################################
+
+def rechercher_dataset():
+
+    # --- Vérifier si le datasets est là ---
+    if not datasets:
+        print(
+            "Aucun dataset disponible pour la recherche.\n"
+        )
+
+    else:
+        nom_recherche = get_string(
+            "Nom du dataset à rechercher : "
+        )
+
+        dataset_trouve = None
+
+
+        # --- Partie 5.3 : Recherche du dataset ---
+        for dataset in datasets:
+            if (
+                dataset["nom"].lower()
+                == nom_recherche.lower()
+            ):
+                dataset_trouve = dataset
+                break
+
+
+        # --- Affichage du résultat de la recherche ---
+        if dataset_trouve is None:
+            print(
+                f"Dataset '{nom_recherche}' non trouvé.\n"
+            )
+
+        else:
+            print(
+                "\n===== Résultat de la recherche ====="
+            )
+            print(
+                f"Nom        : {dataset_trouve['nom']}"
+            )
+            print(
+                f"Domaine    : {dataset_trouve['domaine']}"
+            )
+            print(
+                f"Lignes     : {dataset_trouve['lignes']}"
+            )
+            print(
+                f"Colonnes   : {dataset_trouve['colonnes']}"
+            )
+            print(
+                f"Taille     : {dataset_trouve['taille']} Mo"
+            )
+            print(
+                f"Format     : {dataset_trouve['format']}"
+            )
+            print(
+                f"Public     : "
+                f"{'Oui' if dataset_trouve['public'] else 'Non'}"
+            )
+            print(
+                "====================================\n"
+            )
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) --- Fonction 0
 while True:
@@ -226,32 +292,9 @@ while True:
 
 ###############################################################################################################     # --- Partie 5.3 : Rechercher un dataset  ---
 
-    # --- Partie 5.3 : Rechercher un dataset  ---
+    # --- Partie 5.3 : Rechercher un dataset  --- Fonction 4
     elif choix == 4:
-        if not datasets:
-            print("Aucun dataset disponible pour la recherche.\n")
-        else:
-            nom_recherche = get_string("Nom du dataset à rechercher : ")
-
-            dataset_trouve = None
-
-            for dataset in datasets:
-                if dataset["nom"].lower() == nom_recherche.lower():
-                    dataset_trouve = dataset
-                    break
-
-            if dataset_trouve is None:
-                print(f"Datatset '{nom_recherche}' non trouvé.\n")
-            else:
-                print("\n===== Résultat de la recherche =====")
-                print(f"Nom        : {dataset_trouve['nom']}")
-                print(f"Domaine    : {dataset_trouve['domaine']}")
-                print(f"Lignes     : {dataset_trouve['lignes']}")
-                print(f"Colonnes   : {dataset_trouve['colonnes']}")
-                print(f"Taille     : {dataset_trouve['taille']} Mo")
-                print(f"Format     : {dataset_trouve['format']}")
-                print(f"Public     : {'Oui' if dataset_trouve['public'] else 'Non'}")
-                print("====================================\n")
+        rechercher_dataset()
 
 ###############################################################################################################    # --- Partie 5.4 : Modifier un dataset  ---
 
@@ -313,7 +356,7 @@ while True:
 
 ###############################################################################################################     # --- Partie 5.5 : Supprimer un dataset  ---
 
-    # --- Partie 5.5 : Supprimer un dataset  ---
+    # --- Partie 5.5 : Supprimer un dataset  --- Fonction 3
     elif choix == 6:
         supprimer_dataset()
 
