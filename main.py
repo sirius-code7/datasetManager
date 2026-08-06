@@ -22,6 +22,7 @@ Partie 8 : Les exceptions
 
 import csv
 
+from menu import afficher_menu
 from cs50 import get_string, get_int, get_float
 
 #*********************************************************************************************************************     # --- Partie 4 : Domaines autorisés | Tuples ---
@@ -30,28 +31,6 @@ DOMAINES_AUTORISES = ("Santé", "Finance", "Agriculture", "Transport", "Educatio
 
 # --- Partie 5 : Liste contenant les datasets ---
 datasets = []
-
-
-###############################################################################################################
-# --- Partie 9.1 : Afficher le menu --- Fonction 0
-###############################################################################################################
-
-def afficher_menu():
-    print("\n")
-    print("========================")
-    print("1. Ajouter un dataset")
-    print("2. Afficher les datasets")
-    print("3. Trier les datasets")
-    print("4. Rechercher un dataset")
-    print("5. Modifier un dataset")
-    print("6. Supprimer un dataset")
-    print("7. Afficher les statistiques")
-    print("8. Sauvegarder les datasets")
-    print("9. Recharger les datasets")
-    print("10. Quitter")
-    print("========================")
-
-    return get_int("Votre choix : ")
 
 ###############################################################################################################
 # --- Partie 9.2 : Ajouter un dataset --- fonction 1
