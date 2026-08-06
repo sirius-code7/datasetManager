@@ -33,7 +33,7 @@ datasets = []
 
 
 ###############################################################################################################
-# --- Partie 9.1 : Afficher le menu ---
+# --- Partie 9.1 : Afficher le menu --- Fonction
 ###############################################################################################################
 
 def afficher_menu():
@@ -53,6 +53,75 @@ def afficher_menu():
 
     return get_int("Votre choix : ")
 
+###############################################################################################################
+# --- Partie 9.2 : Ajouter un dataset --- Fonction
+###############################################################################################################
+
+def ajouter_dataset():
+
+    # --- Saisie des métadonnées du dataset ---
+    nom = get_string("Nom du dataset : ")
+
+    domaine = get_string(
+        f"Domaine {DOMAINES_AUTORISES} : "
+    )
+
+    while domaine not in DOMAINES_AUTORISES:
+        print(
+            "Domaine invalide, choisissez parmi la liste proposée.\n"
+        )
+
+        domaine = get_string(
+            f"Domaine {DOMAINES_AUTORISES} : "
+        )
+
+    lignes = get_int("Nombre de lignes : ")
+    colonnes = get_int("Nombre de colonnes : ")
+    taille = get_float("Taille en Mo : ")
+    format_fichier = get_string(
+        "Format (csv ou json) : "
+    )
+
+    public = (
+        get_string(
+            "Public ? (true/false) : "
+        )
+        .strip()
+        .lower()
+        == "true"
+    )
+
+
+    # --- Partie 3 : Stockage dans un dictionnaire ---
+    dataset = {
+        "nom": nom,
+        "domaine": domaine,
+        "lignes": lignes,
+        "colonnes": colonnes,
+        "taille": taille,
+        "format": format_fichier.upper(),
+        "public": public
+    }
+
+
+    # --- Partie 5.1 : Ajout du dataset dans la liste ---
+    datasets.append(dataset)
+
+
+    # --- Affichage du résumé formaté du dataset ajouté ---
+    print("\n===== Résumé du dataset =====")
+    print(f"Nom        : {dataset['nom']}")
+    print(f"Domaine    : {dataset['domaine']}")
+    print(f"Lignes     : {dataset['lignes']}")
+    print(f"Colonnes   : {dataset['colonnes']}")
+    print(f"Taille     : {dataset['taille']} Mo")
+    print(f"Format     : {dataset['format']}")
+    print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
+    print("==============================")
+    print(
+        f"Dataset '{dataset['nom']}' ajouté avec succès.\n"
+    )
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) ---
 while True:
@@ -61,51 +130,9 @@ while True:
 ###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
     # --- Partie 5.1 : Ajouter un dataset ---
     if choix == 1:
-        # --- Saisie des métadonnées du dataset + Ajouter un dataset ---
-        nom = get_string("Nom du dataset : ")
+        ajouter_dataset()
 
-        domaine = get_string(f"Domaine {DOMAINES_AUTORISES} : ")
-        while domaine not in DOMAINES_AUTORISES:
-            print("Domaine invalide, choisissez parmi la liste proposée.\n")
-            domaine = get_string(f"Domaine {DOMAINES_AUTORISES} : ")
-
-        lignes = get_int("Nombre de lignes : ")
-        colonnes = get_int("Nombre de colonnes : ")
-        taille = get_float("Taille en Mo : ")
-        format_fichier = get_string("Format (csv ou json) : ")
-        public = get_string("Public ? (true/false) : ").strip().lower() == "true"
-
-###############################################################################################################     # --- Partie 3 : Stockage dans un dictionnaire ---
-
-        # --- Partie 3 : Stockage dans un dictionnaire ---
-        dataset = {
-            "nom": nom,
-            "domaine": domaine,
-            "lignes": lignes,
-            "colonnes": colonnes,
-            "taille": taille,
-            "format": format_fichier.upper(),
-            "public": public
-        }
-
-###############################################################################################################     # --- Partie 5.1 : Ajout du dataset dans la liste ---
-
-        # --- Partie 5.1 : Ajout du dataset dans la liste ---
-        datasets.append(dataset)
-
-        # --- Affichage du résumé formaté du dataset ajouté ---
-        print("\n===== Résumé du dataset =====")
-        print(f"Nom        : {dataset['nom']}")
-        print(f"Domaine    : {dataset['domaine']}")
-        print(f"Lignes     : {dataset['lignes']}")
-        print(f"Colonnes   : {dataset['colonnes']}")
-        print(f"Taille     : {dataset['taille']} Mo")
-        print(f"Format     : {dataset['format']}")
-        print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
-        print("==============================")
-        print(f"Dataset '{dataset['nom']}' ajouté avec succès.\n")
-
-
+###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
     # ---  Affichage de tous les datasets  ---
     elif choix == 2:
         if not datasets:
