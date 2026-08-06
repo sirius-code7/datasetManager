@@ -3,8 +3,6 @@ datasetManager - Gestion des datasets
 Partie 10 : Modules
 """
 
-import csv
-
 from cs50 import get_string, get_int, get_float
 
 
@@ -34,6 +32,17 @@ def ajouter_dataset():
 
     # --- Saisie des métadonnées du dataset ---
     nom = get_string("Nom du dataset : ")
+
+###############################################################################################################
+    # --- Partie 12 : BONUS : Vérification des doublons ---
+    for dataset in datasets:
+        if dataset["nom"].lower() == nom.lower():
+            print(
+                f"Erreur : le dataset '{nom}' existe déjà. "
+                "Veuillez choisir un autre nom.\n"
+        )
+        return
+###############################################################################################################
 
     domaine = get_string(
         f"Domaine {DOMAINES_AUTORISES} : "
