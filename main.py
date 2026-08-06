@@ -291,6 +291,110 @@ def trier_dataset():
             "==================================\n"
         )
 
+###############################################################################################################
+# --- Partie 9.7 : Modifier un dataset --- fonction 6
+###############################################################################################################
+
+def modifier_dataset():
+
+    # --- Vérification de la présence de datasets ---
+    if not datasets:
+        print(
+            "Aucun dataset disponible pour la modification.\n"
+        )
+
+    else:
+        nom_modification = get_string(
+            "Nom du dataset à modifier : "
+        )
+
+        dataset_trouve = None
+
+
+        # --- Partie 5.4 : Recherche du dataset à modifier ---
+        for dataset in datasets:
+            if (
+                dataset["nom"].lower()
+                == nom_modification.lower()
+            ):
+                dataset_trouve = dataset
+                break
+
+
+        # --- Verifier si le dataset existe ---
+        if dataset_trouve is None:
+            print(
+                f"Dataset '{nom_modification}' non trouvé.\n"
+            )
+
+        else:
+            print(
+                f"\nModification du dataset "
+                f"'{dataset_trouve['nom']}'"
+            )
+
+
+            # --- Saisie des nouvelles métadonnées ---
+            nouveau_nom = get_string(
+                "Nouveau nom du dataset : "
+            )
+
+            nouveau_domaine = get_string(
+                f"Nouveau domaine {DOMAINES_AUTORISES} : "
+            )
+
+            while nouveau_domaine not in DOMAINES_AUTORISES:
+                print(
+                    "Domaine invalide, choisissez parmi "
+                    "la liste proposée.\n"
+                )
+
+                nouveau_domaine = get_string(
+                    f"Nouveau domaine {DOMAINES_AUTORISES} : "
+                )
+
+            nouvelles_lignes = get_int(
+                "Nouveau nombre de lignes : "
+            )
+
+            nouvelles_colonnes = get_int(
+                "Nouveau nombre de colonnes : "
+            )
+
+            nouvelle_taille = get_float(
+                "Nouvelle taille en Mo : "
+            )
+
+            nouveau_format = get_string(
+                "Nouveau format (csv ou json) : "
+            )
+
+            nouveau_public = (
+                get_string(
+                    "Le dataset est-il public ? "
+                    "(true/false) : "
+                )
+                .strip()
+                .lower()
+                == "true"
+            )
+
+
+            # --- Partie 5.4 : Mise à jour des métadonnées ---
+            dataset_trouve["nom"] = nouveau_nom
+            dataset_trouve["domaine"] = nouveau_domaine
+            dataset_trouve["lignes"] = nouvelles_lignes
+            dataset_trouve["colonnes"] = nouvelles_colonnes
+            dataset_trouve["taille"] = nouvelle_taille
+            dataset_trouve["format"] = nouveau_format.upper()
+            dataset_trouve["public"] = nouveau_public
+
+
+            print(
+                f"\nLe dataset '{nom_modification}' "
+                "a été modifié avec succès.\n"
+            )
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) --- fonction 0
 while True:
@@ -320,61 +424,9 @@ while True:
 
 ###############################################################################################################    # --- Partie 5.4 : Modifier un dataset  ---
 
-    # --- Partie 5.4 : Modifier un dataset  ---
+    # --- Partie 5.4 : Modifier un dataset  --- fonction 6
     elif choix == 5:
-        
-        if not datasets:
-            print("Aucun dataset disponible pour la modification.\n")
-        else:
-            nom_modification = get_string("Nom du dataset à modifier : ")
-
-            dataset_trouve = None
-
-            for dataset in datasets:
-                if dataset["nom"].lower() == nom_modification.lower():
-                    dataset_trouve = dataset
-                    break
-
-            if dataset_trouve is None:
-                print(f"Dataset '{nom_modification}' non trouvé.\n")
-            else:
-                print(f"\nModification du dataset '{dataset_trouve['nom']}'")
-
-                # --- Saisie des nouvelles métadonnées ---
-                nouveau_nom = get_string("Nouveau nom du dataset : ")
-
-                nouveau_domaine = get_string(
-                    f"Nouveau domaine {DOMAINES_AUTORISES} : "
-                )
-                while nouveau_domaine not in DOMAINES_AUTORISES:
-                    print("Domaine invalide, choisissez parmi la liste proposée.\n")
-                    nouveau_domaine = get_string(
-                        f"Nouveau domaine {DOMAINES_AUTORISES} : "
-                    )
-
-                nouvelles_lignes = get_int("Nouveau nombre de lignes : ")
-                nouvelles_colonnes = get_int("Nouveau nombre de colonnes : ")
-                nouvelle_taille = get_float("Nouvelle taille en Mo : ")
-                nouveau_format = get_string("Nouveau format (csv ou json) : ")
-                nouveau_public = (
-                    get_string("Le dataset est-il public ? (true/false) : ")
-                    .strip()
-                    .lower()
-                    == "true"
-                )
-
-                # --- Mise à jour des métadonnées du dataset ---
-                dataset_trouve["nom"] = nouveau_nom
-                dataset_trouve["domaine"] = nouveau_domaine
-                dataset_trouve["lignes"] = nouvelles_lignes
-                dataset_trouve["colonnes"] = nouvelles_colonnes
-                dataset_trouve["taille"] = nouvelle_taille
-                dataset_trouve["format"] = nouveau_format.upper()
-                dataset_trouve["public"] = nouveau_public
-
-                print(
-                    f"\nLe dataset '{nom_modification}' a été modifié avec succès.\n"
-                )
+        modifier_dataset()  
 
 ###############################################################################################################     # --- Partie 5.5 : Supprimer un dataset  ---
 
