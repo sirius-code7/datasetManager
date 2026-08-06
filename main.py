@@ -33,7 +33,7 @@ datasets = []
 
 
 ###############################################################################################################
-# --- Partie 9.1 : Afficher le menu --- Fonction
+# --- Partie 9.1 : Afficher le menu --- Fonction 0
 ###############################################################################################################
 
 def afficher_menu():
@@ -54,7 +54,7 @@ def afficher_menu():
     return get_int("Votre choix : ")
 
 ###############################################################################################################
-# --- Partie 9.2 : Ajouter un dataset --- Fonction
+# --- Partie 9.2 : Ajouter un dataset --- Fonction 1
 ###############################################################################################################
 
 def ajouter_dataset():
@@ -122,33 +122,46 @@ def ajouter_dataset():
         f"Dataset '{dataset['nom']}' ajouté avec succès.\n"
     )
 
+
+###############################################################################################################
+# --- Partie 9.3 : Afficher les datasets --- Fonction 2
+###############################################################################################################
+
+def afficher_datasets():
+
+    # --- Vérification de la présence de datasets ---
+    if not datasets:
+        print("Aucun dataset disponible.\n")
+
+    else:
+        print("\n===== Liste des datasets =====")
+
+        for dataset in datasets:
+            print(f"Nom        : {dataset['nom']}")
+            print(f"Domaine    : {dataset['domaine']}")
+            print(f"Lignes     : {dataset['lignes']}")
+            print(f"Colonnes   : {dataset['colonnes']}")
+            print(f"Taille     : {dataset['taille']} Mo")
+            print(f"Format     : {dataset['format']}")
+            print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
+            print("------------------------------")
+
+        print("==============================\n")
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
-# --- Partie 2 : Menu interactif (provisoire) ---
+# --- Partie 2 : Menu interactif (provisoire) --- Fonction 0
 while True:
     choix = afficher_menu()
 
 ###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
-    # --- Partie 5.1 : Ajouter un dataset ---
+    # --- Partie 5.1 : Ajouter un dataset --- Fonction 1
     if choix == 1:
         ajouter_dataset()
 
 ###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
-    # ---  Affichage de tous les datasets  ---
+    # ---  Affichage de tous les datasets  --- Fonction 2
     elif choix == 2:
-        if not datasets:
-            print("Aucun dataset disponible.\n")
-        else:
-            print("\n===== Liste des datasets =====")
-
-            for dataset in datasets:
-                print(f"Nom        : {dataset['nom']}")
-                print(f"Domaine    : {dataset['domaine']}")
-                print(f"Lignes     : {dataset['lignes']}")
-                print(f"Colonnes   : {dataset['colonnes']}")
-                print(f"Taille     : {dataset['taille']} Mo")
-                print(f"Format     : {dataset['format']}")
-                print(f"Public     : {'Oui' if dataset['public'] else 'Non'}")
-                print("------------------------------")
+        afficher_datasets()
 
 ###############################################################################################################     # --- Partie 5.2 : Trier les datasets  ---
 
