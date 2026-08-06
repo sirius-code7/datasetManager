@@ -8,19 +8,6 @@ from pathlib import Path
 
 from datasets.gestion import datasets
 
-
-###############################################################################################################
-# --- Emplacement du fichier CSV ---
-###############################################################################################################
-
-CSV_FILE = (
-    Path(__file__).resolve().parent.parent
-    / "data"
-    / "datasets.csv"
-)
-
-
-
 ###############################################################################################################
 # --- Partie 9.8 : Sauvegarder les datasets --- fonction 7
 ###############################################################################################################
@@ -29,7 +16,7 @@ def sauvegarder():
 
     # --- Partie 7.1 : Sauvegarde des données dans un fichier CSV ---
     with open(
-        "datasets.csv",
+        "data/datasets.csv",
         "w",
         newline="",
         encoding="utf-8"
