@@ -1,6 +1,6 @@
 nom,domaine,lignes,colonnes,taille,format,public
 ia,Education,5,4,6.0,CSV,False
-neurologie,Santé,114,33,200.3,JSON,False
+neurologie,Santé,114,33,200.5,JSON,True
 voie ferrée,Transport,700,2003,180.4,JSON,False
 fintech,Finance,4000,15000,30.0,CSV,False
 agrotech,Agriculture,500,40,80.9,CSV,False
