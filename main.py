@@ -395,6 +395,43 @@ def modifier_dataset():
                 "a été modifié avec succès.\n"
             )
 
+###############################################################################################################
+# --- Partie 9.8 : Sauvegarder les datasets --- fonction 7
+###############################################################################################################
+
+def sauvegarder():
+
+    # --- Partie 7.1 : Sauvegarde des données dans un fichier CSV ---
+    with open(
+        "datasets.csv",
+        "w",
+        newline="",
+        encoding="utf-8"
+    ) as fichier:
+
+        colonnes = [
+            "nom",
+            "domaine",
+            "lignes",
+            "colonnes",
+            "taille",
+            "format",
+            "public"
+        ]
+
+        writer = csv.DictWriter(
+            fichier,
+            fieldnames=colonnes
+        )
+
+        writer.writeheader()
+        writer.writerows(datasets)
+
+    print(
+        "Les datasets ont été sauvegardés "
+        "dans 'datasets.csv'.\n"
+    )
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
 # --- Partie 2 : Menu interactif (provisoire) --- fonction 0
 while True:
@@ -499,27 +536,10 @@ while True:
 
 ###############################################################################################################     # --- Partie 7.1 : Sauvegarder les données dans un fichier CSV ---
 
-        # --- Partie 7.1 : Sauvegarder les données dans un fichier CSV ---
+        # --- Partie 7.1 : Sauvegarder les données dans un fichier CSV --- fonction 7
 
     elif choix == 8:
-        with open("datasets.csv", "w", newline="", encoding="utf-8") as fichier:
-            colonnes = [
-                "nom",
-                "domaine",
-                "lignes",
-                "colonnes",
-                "taille",
-                "format",
-                "public"
-            ]
-
-            writer = csv.DictWriter(fichier, fieldnames=colonnes)
-
-            writer.writeheader()
-            writer.writerows(datasets)
-
-        print("Les datasets ont été sauvegardés dans 'datasets.csv'.\n")
-
+        sauvegarder()
 
 ###############################################################################################################     # --- Partie 7.2 : Recharger + afficher les données depuis un fichier CSV ---
 
