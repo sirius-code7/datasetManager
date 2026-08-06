@@ -54,7 +54,7 @@ def afficher_menu():
     return get_int("Votre choix : ")
 
 ###############################################################################################################
-# --- Partie 9.2 : Ajouter un dataset --- Fonction 1
+# --- Partie 9.2 : Ajouter un dataset --- fonction 1
 ###############################################################################################################
 
 def ajouter_dataset():
@@ -124,7 +124,7 @@ def ajouter_dataset():
 
 
 ###############################################################################################################
-# --- Partie 9.3 : Afficher les datasets --- Fonction 2
+# --- Partie 9.3 : Afficher les datasets --- fonction 2
 ###############################################################################################################
 
 def afficher_datasets():
@@ -150,7 +150,7 @@ def afficher_datasets():
 
 
 ###############################################################################################################
-# --- Partie 9.4 : Supprimer un dataset ---
+# --- Partie 9.4 : Supprimer un dataset --- fonction 3
 ###############################################################################################################
 
 def supprimer_dataset():
@@ -194,7 +194,7 @@ def supprimer_dataset():
             )
 
 ###############################################################################################################
-# --- Partie 9.5 : Rechercher un dataset ---
+# --- Partie 9.5 : Rechercher un dataset --- fonction 4
 ###############################################################################################################
 
 def rechercher_dataset():
@@ -259,40 +259,62 @@ def rechercher_dataset():
                 "====================================\n"
             )
 
+###############################################################################################################
+# --- Partie 9.6 : Trier les datasets --- fonction 5
+###############################################################################################################
+
+def trier_dataset():
+
+    # --- Vérification de la présence de datasets ---
+    if not datasets:
+        print(
+            "Aucun dataset disponible pour le tri.\n"
+        )
+
+    else:
+
+        # --- Partie 5.2 : Tri des datasets par nom ---
+        datasets.sort(
+            key=lambda dataset: dataset["nom"].lower()
+        )
+
+        print(
+            "\n===== Datasets triés par nom ====="
+        )
+
+        for dataset in datasets:
+            print(
+                f"- {dataset['nom']}"
+            )
+
+        print(
+            "==================================\n"
+        )
+
 ###############################################################################################################     # --- Partie 1 : Menu interactif ---
-# --- Partie 2 : Menu interactif (provisoire) --- Fonction 0
+# --- Partie 2 : Menu interactif (provisoire) --- fonction 0
 while True:
     choix = afficher_menu()
 
 ###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
-    # --- Partie 5.1 : Ajouter un dataset --- Fonction 1
+    # --- Partie 5.1 : Ajouter un dataset --- fonction 1
     if choix == 1:
         ajouter_dataset()
 
 ###############################################################################################################     # --- Partie 5.1 : Ajouter un dataset ---
-    # ---  Affichage de tous les datasets  --- Fonction 2
+    # ---  Affichage de tous les datasets  --- fonction 2
     elif choix == 2:
         afficher_datasets()
 
 ###############################################################################################################     # --- Partie 5.2 : Trier les datasets  ---
 
-    # --- Partie 5.2 : Trier les datasets  ---
+    # --- Partie 5.2 : Trier les datasets  --- fonction 5
     elif choix == 3:
-        if not datasets:
-            print("Aucun dataset disponible pour le tri.\n")
-        else:
-            datasets.sort(key=lambda dataset: dataset["nom"].lower())
-            print("Les datasets ont été triés par nom.\n")
-            print("\n===== Datasets triés par nom =====")
-
-        for dataset in datasets:
-            print(f"- {dataset['nom']}")
-
-        print("==================================\n")
+        trier_dataset()
 
 ###############################################################################################################     # --- Partie 5.3 : Rechercher un dataset  ---
 
-    # --- Partie 5.3 : Rechercher un dataset  --- Fonction 4
+    # --- Partie 5.3 : Rechercher un dataset  --- fonction 4
     elif choix == 4:
         rechercher_dataset()
 
