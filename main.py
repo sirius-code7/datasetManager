@@ -18,19 +18,18 @@ Partie 7.1 : Sauvegarde les données dans un fichier CSV
 Partie 7.2 : Recharger + afficher les données depuis un fichier CSV
 ---------------------------------------------------------------------
 Partie 8 : Les exceptions
+---------------------------------------------------------------------
+Partie 9 : Fonctions
+---------------------------------------------------------------------
+Partie 10 : Modules
 """
 
 import csv
 
 from menu import afficher_menu
 from cs50 import get_string, get_int, get_float
+from gestion import DOMAINES_AUTORISES, datasets
 
-#*********************************************************************************************************************     # --- Partie 4 : Domaines autorisés | Tuples ---
-# --- Partie 4 : Domaines autorisés (immuables) ---
-DOMAINES_AUTORISES = ("Santé", "Finance", "Agriculture", "Transport", "Education")
-
-# --- Partie 5 : Liste contenant les datasets ---
-datasets = []
 
 ###############################################################################################################
 # --- Partie 9.2 : Ajouter un dataset --- fonction 1
